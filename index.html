@@ -11,10 +11,22 @@
                 transition:all 2s;
 
             }
-
             .black{
                 background:#000;
                 opacity:0;
+            }
+            .videoWrapper {
+                 position: relative;
+                 padding-bottom: 56.25%; 
+                 padding-top: 25px;
+                 height: 0;
+            }
+            .videoWrapper iframe {
+                 position: absolute;
+                 top: 0;
+                 left: 0;
+		 width: 100%;
+                 height: 100%;
             }
         </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -57,7 +69,7 @@
             <div class="form-group" >
                 <label for="inputPassword" class="col-lg-2 control-label">이메일</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" pattern="[a-zA-Z0-9]{1,}\@[a-zA-Z0-9]{1,}\.[a-zA-Z0-9]{1,}" data-rule-required="true" placeholder="이메일 주소를 입력 해 주세요" maxlength="30">
+                    <input type="text" class="form-control" pattern="[a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}\.[a-zA-Z0-9]{1,}" data-rule-required="true" placeholder="이메일 주소를 입력 해 주세요" maxlength="30">
                 </div>
             </div>
             <div class="form-group" >
@@ -100,49 +112,49 @@
             <div class="form-group" id="divName">
                     <label for="inputName" class="col-lg-2 control-label">이름</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                        <input type="text" class="form-control onlyHangul" id="uname" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                     </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">어머니 이름</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <input type="text" class="form-control onlyHangul" id="nu_guma" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">어머니 나이</label>
                         <div class="col-lg-10">
-                            <input type="number" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="숫자만 입력 해 주세요." maxlength="3">
+                            <input type="number" class="form-control onlyHangul" id="nu_guma_nai" data-rule-required="true" placeholder="숫자만 입력 해 주세요." maxlength="3">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">아버지 이름</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <input type="text" class="form-control onlyHangul" id="ni_abi" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">아버지 나이</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="숫자만 입력 해 주세요." maxlength="3">
+                            <input type="text" class="form-control onlyHangul" id="ni_abi_nai" data-rule-required="true" placeholder="숫자만 입력 해 주세요." maxlength="3">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">다니던 초등학교</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <input type="text" class="form-control onlyHangul" id="top" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">다니던 중학교</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <input type="text" class="form-control onlyHangul" id="mid" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                         </div>
                 </div>
                 <div class="form-group" id="divName">
                         <label for="inputName" class="col-lg-2 control-label">다니던 고등학교</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <input type="text" class="form-control onlyHangul" id="jungle" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                         </div>
                 </div>
             <div class="form-group" >
@@ -167,6 +179,19 @@
                 <label for="inputNickname" class="col-lg-2 control-label">상세주소</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="addrDetail" data-rule-required="true" placeholder="상세주소" disabled maxlength="40">
+                </div>
+            </div>
+            <!-- 이매일 2개는 너무 적소, 4개로 합시다. -->
+            <div class="form-group" >
+                <label for="inputEmail" class="col-lg-2 control-label">전자 우편</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" id="yeetmail" data-rule-required="true" placeholder="전자 우편" maxlength="40">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputEmail" class="col-lg-2 control-label">e-메일</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" id="eemail" data-rule-required="true" placeholder="e-메일" maxlength="40">
                 </div>
             </div>
             <div class="form-group" >
@@ -252,7 +277,18 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 }
 
 $("button.signin").click(v => {
-    if( $("#name").val() === "샌즈" ){
+    if ( $("#name").val() === "ppap" ){
+        $("body").addClass("black")
+        setTimeout(() => {
+            $("body").html("<div class='videoWrapper'><iframe src='https://www.youtube.com/embed/Ct6BUPvE2sM?start=15&autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>")
+            $("body,html").css("width","100%");
+            $("body,html").css("height","100%");
+            $("body,html").css("opacity","1");
+            
+        },12000)
+        return;
+    }
+    if( $("#name").val() === "샌즈" || $("#name").val() === "sans" || $("#name").val() === "sans undertale"){
         $("body").addClass("black")
         setTimeout(() => {
             $("body").html("<iframe src='https://jcw87.github.io/c2-sans-fight/' style='width:100%;height:100%;overflow:hidden;'>")
@@ -262,7 +298,7 @@ $("button.signin").click(v => {
             
         },2000)
         return;
-    } 
+    }
 
     let message;
     switch( Math.floor( Math.random() * 4  )){
