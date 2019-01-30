@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <!-- meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/ -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>사거리</title>
+        <style>
+            body{
+                transition:all 2s;
+
+            }
+
+            .black{
+                background:#000;
+                opacity:0;
+            }
+        </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container"><!-- 좌우측의 공간 확보 -->
+            <!-- 모달창 -->
+            <div class="modal fade" id="defaultModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">알림</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-contents"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!--// 모달창 -->
+            <hr/>
+                <!-- 본문 들어가는 부분 -->
+                 
+ 
+ 
+        <foorm class="form-horizontal" role="form" method="post" >
+        <h2> 제보 </h2>
+            <div class="form-group" >
+                <label for="inputId" class="col-lg-2 control-label">성함</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control onlyAlphabetAndNumber" required id="name" data-rule-required="true" placeholder="성함을 입력 해 주세요" maxlength="4">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPassword" class="col-lg-2 control-label">이메일</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" pattern="[a-zA-Z0-9]{1,}\@[a-zA-Z0-9]{1,}\.[a-zA-Z0-9]{1,}" data-rule-required="true" placeholder="이메일 주소를 입력 해 주세요" maxlength="30">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPassword" class="col-lg-2 control-label">이메일 패스워드</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="password" data-rule-required="true" placeholder="패스워드" maxlength="30">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPasswordCheck" class="col-lg-2 control-label">이메일 패스워드 확인</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="passwordCheck" data-rule-required="true" placeholder="패스워드 확인" maxlength="30">
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label for="inputPassword" class="col-lg-2 control-label">스팀 아이디</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" data-rule-required="true" placeholder="20자 미만의 영문자와숫자, 언더바로 입력해주세요" maxlength="30">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPassword" class="col-lg-2 control-label">스팀 패스워드</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="steampassword" data-rule-required="true" placeholder="스팀 패스워드" maxlength="30">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPasswordCheck" class="col-lg-2 control-label">스팀 패스워드 확인</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="steampasswordCheck" data-rule-required="true" placeholder="스팀 패스워드 확인" maxlength="30">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPasswordCheck" class="col-lg-2 control-label">스팀 2차 패스워드</label>
+                <div class="col-lg-10">
+                    <input type="number" class="form-control" id="steampasswordCheck" data-rule-required="true" placeholder="스팀 2차 패스워드" maxlength="6">
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label for="inputNickname" class="col-lg-2 control-label">우편번호</label>
+                <div class="col-lg-2">
+                    <button class="btn btn-prime" onclick="goPopup();">주소 검색</button>
+                </div>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="zipNo" data-rule-required="true" placeholder="우편번호" disabled maxlength="8">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="address" class="col-lg-2 control-label">주소</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" id="roadAddrPart1" data-rule-required="true" placeholder="주소" disabled maxlength="40">
+                </div>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" id="roadAddrPart2" data-rule-required="true" placeholder="주소" disabled maxlength="40">
+                </div>
+            </div>
+                        <div class="form-group" >
+                <label for="inputNickname" class="col-lg-2 control-label">상세주소</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="addrDetail" data-rule-required="true" placeholder="상세주소" disabled maxlength="40">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" id="email" data-rule-required="true" placeholder="이메일" maxlength="40">
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
+                <div class="col-lg-10">
+                    <input type="tel" class="form-control onlyNumber" id="phoneNumber" data-rule-required="true" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoneNumber" class="col-lg-2 control-label">성별</label>
+                <div class="col-lg-10">
+                    <select class="form-control" id="gender">
+                        <option value="M">남</option>
+                        <option value="F">여</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoneNumber" class="col-lg-2 control-label">넥슨 아이디 및 비밀번호에 관한 신상 제공 여부</label>
+                <div class="col-lg-10">
+                    <label class="radio-inline">
+                        <input type="radio" id="smsReceiveYn" value="Y" checked> 동의합니다.
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoneNumber" class="col-lg-2 control-label">넥슨 아이디 및 비밀번호에 관한 신상 제공 여부</label>
+                <div class="col-lg-10">
+                    <label class="radio-inline">
+                        <input type="radio" id="smsReceiveYn" value="Y" checked> 동의합니다.
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-default signin">Sign in</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <script>
+
+function goPopup(){
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+    url = `http://www.juso.go.kr/addrlink/addrLinkUrl.do`
+    + `?confmKey=U01TX0FVVEgyMDE5MDEzMDIxNDUwMDEwODQ4ODE=&returnUrl=${location.href}`
+
+    var pop = window.open(url,"pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+    
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+}
+/** API 서비스 제공항목 확대 (2017.02) **/
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+						, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	$("#roadAddrPart1").val(roadAddrPart1)
+	$("#roadAddrPart2").val(roadAddrPart2)
+	$("#addrDetail").val(addrDetail)
+	$("#zipNo").val(zipNo)
+}
+
+$("button.signin").click(v => {
+    if( $("#name").val() === "샌즈" ){
+        $("body").addClass("black")
+        setTimeout(() => {
+            $("body").html("<iframe src='https://jcw87.github.io/c2-sans-fight/' style='width:100%;height:100%;overflow:hidden;'>")
+            $("body,html").css("width","100%");
+            $("body,html").css("height","100%");
+            $("body,html").css("opacity","1");
+            
+        },2000)
+        return;
+    } 
+
+    let message;
+    switch( Math.floor( Math.random() * 4  )){
+        case 0:
+            message = "올바르지 않은 스팀 비밀번호입니다."
+        break;
+        case 1:
+            message = "올바르지 않은 스팀 2차 비밀번호입니다."
+        break;
+        case 2:
+            message = "올바르지 않은 이메일 비밀번호입니다."
+        break;
+        case 3:
+            message = "올바르지 않은 이름입니다."
+        break;
+    }
+    alert(message)
+})
+
+        </script>
+        </body>
+        
+        </html>
