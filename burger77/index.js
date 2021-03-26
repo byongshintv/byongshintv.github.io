@@ -48,5 +48,11 @@ async function getFixedUserCommentes(no,length){
 	return result.shuffle().slice(0,length-1).concat("담당일진연가냄(rnaos1234)").shuffle()
 }
 
-Array.prototype.shuffle = (function(){ return this.sort( () => 0.5 - Math.random())})
-console.log(await getFixedUserCommentes("1035046",5))
+Array.prototype.shuffle = (function(){ return this.sort( () => 0.5 - Math.random())});
+
+async function main(){
+    var result = await getFixedUserCommentes("1035046",5);
+    console.log(result)
+
+}
+main()
