@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 계정 생성 순서는 몇번째인거 가테??</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            font-family: Nanum Myeongjo;
+        }
+        .moveable {
+            position: fixed !important;
+            transform: translateY(-100%);
+            top: 50px;
+            z-index: 99;
+
+        }
+
+        #nav {
+            height: 50vh;
+            position: relative;
+            text-shadow: 0px 2px 4px black;
+        }
+
+        #nav .brand-logo {
+            left: 0;
+            transform: initial;
+        }
+
+        #nav .nav-content {
+            bottom: 0;
+            position: absolute;
+        }
+
+        #nav .nav-header .material-icons {
+            display: inline-block;
+            font-size: 3rem;
+        }
+
+        #nav .nav-content .tabs {
+            width: 98vw;
+            display: block;
+        }
+
+        #nav .nav-background .pattern {
+            background-image: url(parr1.jpg);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        #nav .nav-header {
+            position: absolute;
+            height: 100%;
+        }
+
+        .parallax-container {
+            height: 80vh
+        }
+
+        .header {
+
+            color: hsl(133deg 39% 62%);
+        }
+
+        #nav ul li {
+            float: right !important;
+        }
+
+        .brand-logo {
+            margin-left: 15px;
+        }
+
+        h2.header{
+            margin-left:10px;
+            
+            font-size: 3rem;
+        }
+
+        .footer-spon{
+            display: inline-block;
+            float: left;
+            margin-right: 50px;
+            margin-bottom: 20px;
+        }
+
+        .page-footer{
+            background:hsl(133deg 39% 62%);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="section-header">
+        <nav class="nav-extended" id="nav">
+            <div class="nav-background">
+                <div class="pattern active" style="background-image: url('parr1.jpg');"></div>
+            </div>
+            <div class="nav-header center row valign-wrapper">
+                <div class="col s2">
+                    <img class="responsive-img" src="./dance.gif">
+                </div>
+                <div class="col s8">
+                    <h2><i class="material-icons large">today</i> 계정생성 계산기</h2>
+                    <div class="tagline">이 솔루션은 전국메이릴맘협회의 지원으로 만들어졌습니다</div>
+                </div>
+                <div class="col s2">
+                    <img class="responsive-img" src="./dance.gif" style="transform: scaleX(-1);">
+                </div>
+            </div>
+
+            <div class="nav-content">
+                <a href="#" class="brand-logo">며칠가테</a>
+
+                <ul class="tabs tabs-transparent">
+                    <li class="tab"><a class="active" href="#">메인화면</a></li>
+                    <li class="tab"><a href="#test2" href="#">생성기</a></li>
+                    <li class="tab"><a href="#test4" href="#">설명</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img src="parr2.png"></div>
+    </div>
+    <h2 class="header">생성순서 확인</h2>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="input-field center">
+                            <input id="code" type="text" class="validate" data-length="5" >
+                            <label for="code">캐릭코드를 입력해주세요</label>
+                    </div>
+                </div>
+
+                <div class="card-action">
+                    <a href="#!"  style="height:auto;" class="view-result waves-effect waves-light teal-text text-darken-4 btn-flat">
+                        메이릴이 땃쥐보다 우월하다는것에 동의하며 결과 보기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #result .prefix, #result .suffix{
+            font-size:3rem;
+        }
+        
+        #result .value{
+            font-size:5rem;
+        }
+    </style>
+
+    <div class="row" id="result" style="display:none">
+        <div class="col s12 l4 center prefix">기사님의 생성순서는</div>
+        <div class="col s12 l4 center value"></div>
+        <div class="col s12 l4 center suffix">번째입니다.</div>
+
+    </div>
+    <script>
+        
+        $("#code").on("keyup",function(){
+            $(this).val((i,v) => v.toUpperCase().replace(/[^0123456789ABCDEGHKLMNPQRTUVWXY]/g,"").substring(0,5) )
+        })
+
+        $(".view-result").on("click",async function(){
+            var code = $("#code").val();
+            var errorMessage = resultValidate(code)
+            if( errorMessage !== true ) return alert(errorMessage)
+            if( $("#result").css("display") !== "none"){
+                await $("#result").slideUp(150)
+            }
+            $("#result .value").text( toCount(code) )
+            $("#result").slideDown(150)
+
+        })
+
+        function resultValidate(code){
+            if(code.length !== 5) return '코드는 다섯글자여야되요'
+            if( code.toLowerCase().substring(4).split("").filter(v => v.match(/[fosijz]/)).length > 0 ) return "코드 앞 네글자에 포함 될 수 없는 글자가 있어요"
+            if( !code.toLowerCase().split("")[4].match(/[lx1b]/) ) return "코드 맨 뒤 글자는 포함 될 수 없는 글자에요"
+            return true
+        }
+        function toCount(code) {
+            var basen = new Array(36).fill(1).map((v, i) => (i).toString(36)).filter(v=> !v.match(/[fosijz]/) )
+            var baseni = basen.length - 1
+            var lastbasen = "lx1b".split("")
+            var result = code.toLowerCase().split("").map((v, i) => {
+                return i === 4 ? Math.pow(baseni, 4) * lastbasen.indexOf(v) : Math.pow(baseni, 3 - i) * basen.indexOf(v)
+            }).reduce((a, b) => a + b, 0)
+            return result
+
+        }
+
+    </script>
+    <div class="parallax-container">
+        <div class="parallax"><img
+                src="https://dcimg3.dcinside.co.kr/viewimage.php?id=2aa8d134e1db39a87abedab005&no=24b0d769e1d32ca73cec81fa11d02831ce3cef1b9542c00ceb084720faa1823ab9e0c54950c27ea4465812a3d54d465f9d0bc2e793b0c72094637a4f744277f6ae6ea578126d02d8">
+        </div>
+    </div>
+
+    <h2 class="header">메피드웨건</h2>
+    <div class="containter">
+        <div class="row">
+            <div class="col l4 s12">
+                <h5>어떻게 계산되나요?</h5>
+                <p class="grey-text text-darken-2">
+                    #0001L라는 계정코드가 있다면 이 계정은 첫번째로 만들어진 계정임.
+                    첫번째 네자리 숫자는 0001~YYYY로 생성된 순서대로 배정됨.
+                    마지막 숫자는 계정생성 순서의 추가적인 자릿수로 YYYYL 다음엔 0001X로 넘어가게된다.
+                    만약 02T3L이란 유저와 R311L이란 유저가있으면.
+                    앞에 숫자가 0인 02t3L유저가 더 빨리 생성했다는걸 알수있음.
+                    그리고 f, o, s, i, j, z 는 코드에 존재하지않음.
+                    결론을 말하자면
+                    0001에 가까울수록 늙은이 YYYY에 가까울수록 응애.
+                    그리고 닉코드에 F, O, S, I, J, Z 는 존재하지않는다. -출처: 가갤파딱</p>
+
+            </div>
+            <div class="col l4 s12">
+                <h5>내 계정 생성일은 언제쯤되나요?</h5>
+                <p class="grey-text text-darken-2"></p>
+                지금 가테하는 유저중 대부분 맨 마지막 코드는 L,X,1 3개중 하나일거임
+
+                그중 L은 오픈일인 7월달 시작일 (오룡인)
+
+                그리고 X는 7월 23일 이후 시작일 (광룡인)
+
+                1은 8월 11일 이후 시작일임 (유룡인)
+
+                B는 2월 이후 시작일 (주룡인) -출처: 가갤파딱</p>
+
+
+            </div>
+            <div class="col l4 s12">
+                <h5>메이릴은 대체 왜쳐넣었나요?</h5>
+                <p class="grey-text text-darken-2">사이트 내가 만들었는데 메이릴 도배 좀 할 수 있지 땃갈새끼들아</p>
+            </div>
+        </div>
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img
+                src="https://dcimg3.dcinside.co.kr/viewimage.php?id=2aa8d134e1db39a87abedab005&no=24b0d769e1d32ca73cec81fa11d02831ce3cef1b9542c00ceb084720fba9823a4839816f37ab2523511e9a548eef18ae3ef14697b15ab80c15f390383260eb9f416c1d09e4569f81e87bed78616d2d7b6d59917779771dfaf0be424833db6bb713a82de146b4c9e48781b93972">
+        </div>
+    </div>
+    
+    <h2 class="header">스트레스 해소의 장</h2>
+    <div class="containter">
+        <div class="row center">
+            <div class="s12" id="ddatemeWrapper">
+                <img id="ddatme" class="responsive-img" src="./beat_0.gif">
+            </div>
+            <div class="s12">
+                <a id="beat_ddat" class="waves-effect waves-light btn"><i class="material-icons left">whatshot</i>땃쥐패기</a>
+            </div>
+            
+            
+        </div>
+    </div>
+    <script>
+        Array.prototype.random = function(){
+    return this[Math.floor(Math.random()*this.length)];
+    }
+        async function asleep(interval, rInterval = 0){
+            return new Promise(async function(res,rej){
+                var addInterval = Math.random() * rInterval - (rInterval/2)
+                setTimeout(function(){
+                    res()
+                }, interval + addInterval)
+            })
+        }
+
+        var soundlist = ["punch-middle2.mp3","punch-high1.mp3","punch-high2.mp3","kick-low1.mp3","kick-middle1.mp3","kick-high1.mp3"]
+        soundlist.forEach(v => {
+            var sound = "https://soundeffect-lab.info/sound/battle/mp3/"+soundlist.random()
+            new Audio(sound).load()
+
+        })
+        $("#beat_ddat").on("click",async function(){
+            const $ddatme = $("#ddatme").clone()
+            $("#ddatemeWrapper").html($ddatme)
+            $ddatme.attr("src","beat_1.png");
+            await asleep(150)
+            var sound = "https://soundeffect-lab.info/sound/battle/mp3/"+soundlist.random()
+            new Audio(sound).play()
+            $ddatme.attr("src","beat_2.png");
+            await asleep(250)
+            $ddatme.attr("src","beat_0.gif");
+        })
+    </script>
+    <footer class="page-footer docs-footer">
+        <div class="container">
+            <h2>이런사람들이 도와주셨어요</h2>
+            <div class="row">
+                <div class="col s12">
+                    <div class="footer-spon"><img src="spon_1.gif" alt="파딱"></div>
+                    <div class="footer-spon"><img src="spon_2.gif" alt="메이릴맘"></div>
+                    <div class="footer-spon"><img src="spon_3.gif" alt="짤쟁이"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2021-<noscript>2021</noscript><script type="text/javascript">document.write(new Date().getFullYear());</script> 메이릴맘협회, All rights reserved.
+            <a class="grey-text text-darken-1 right" href="https://github.com/Dogfalo/materialize/blob/master/LICENSE">MIT License</a>
+          </div>
+
+    </footer>
+
+
+
+    <script>
+        $('.parallax').parallax();
+
+        $('.tabs').tabs();
+
+        (function () {
+            var i = 0;
+            setInterval(function () {
+                $("#nav .nav-background .pattern").css("background-position-y", Math.sin(i++ / 90) * 50 + 50 + "%")
+            }, 33 / 2)
+        })();
+
+        $(document).on("scroll", function () {
+            var $nav = $("#nav .nav-content")
+            var topCritica = $nav.position().top
+            if (topCritica < $(document).scrollTop()) {
+                $("#nav").addClass("moveable")
+            } else {
+                $("#nav").removeClass("moveable")
+            }
+        })
+
+    </script>
+</body>
+
+</html>
