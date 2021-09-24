@@ -95,14 +95,14 @@ document.getElementById("start").addEventListener("click",function(e){
 
     let {length,charts} = result
     let resultHtml = `<h5>곡 총길이 : ${Math.floor(length/60)}분 ${length % 60}초 <h5>`
-    charts.forEach(({diff,key,title,category,length,note}) => {
+    charts.forEach(({diff,key,title,category,length,note, density}) => {
         resultHtml += `
         <div class="song">
             <div class="category">[${key}B${diff}]${category}</div>
-            <div class="title">${title}(${note}Note)</div> 
+            <div class="title">${title}(${note.toLocaleString()}Note)</div> 
             <div class="calc">
-                <div class="right">${length}초</div>
-                <div>(+= ${note+startCombo}combo)</div>
+                <div class="right">${length}초 / ${Math.floor(density*100)/100}ns</div>
+                <div>(+= ${(note+startCombo).toLocaleString()}combo)</div>
             </div>
         </div>`
 
