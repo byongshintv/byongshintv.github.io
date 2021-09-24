@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디맥 콤보 계산기</title>
+    <link rel="stylesheet" href="libs/materialize.min.css">
+    <link rel="stylesheet" href="libs/nouislider.min.css">
+    <style>
+        body{
+            background:url('./assets/icon_45.gif');
+        }
+
+        .container{
+            padding-top:8px;
+        }
+        .section{
+            background:rgba(255,255,255,0.9);
+            backdrop-filter: blur(5px);
+            padding:4px;
+            margin-bottom:16px;
+            border-radius: 4px;
+        }
+        
+        .density.wrapper{
+            padding:0 20px;
+        }
+
+        #result > .value{
+            font-size:0.8em;
+        }
+        #result .song{
+            background:#fff;
+            border-radius: 4px;
+            padding:4px;
+            margin:4px;
+            box-shadow: 0px 3px 3px rgb(0 0 0 / 25%);
+            font-size: 0.7em;
+        }
+
+        #result .song .title{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="section center" id="header">
+            <h4>디콤계(디맥콤보계산기)</h4>
+        </div>
+        <form class="section" id="form">
+            <div class="row">
+                
+                <h4>시리즈</h4>
+                <div class="wrapper row" id="series">
+                </div>
+                <h4>난이도</h4>
+                <div class="wrapper row" id="diffs">
+                </div>
+                <h4>밀도(nps)</h4>
+                <div class="wrapper density row" class="range-field">
+                    <div id="density" class="range-field"></div>
+                </div>
+                <h4>목표콤보</h4>
+                <div class="input-field col s6">
+                  <input id="comboStart" type="number">
+                  <label for="comboStart">시작 콤보</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="comboEnd" type="number">
+                  <label for="comboEnd">종료 콤보</label>
+                </div>
+                <div class="footer center">
+                    <button class="btn blue" id="start">계산 시작!</button>
+                </div>
+              </div>
+        </form>
+        <div class="section" id="result">
+            <h4>결과</h4>
+            <div class="value">
+                
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="libs/materialize.min.js"></script>
+    <script type="text/javascript" src="libs/lodash.min.js"></script>
+    <script type="text/javascript" src="libs/nouislider.min.js"></script>
+    
+    <script type="text/javascript" src="index.js"></script>
+</html>
