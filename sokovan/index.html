@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소코반 시뮬레이터</title>
+    <link rel="stylesheet" href="libs/materialize.min.css">
+    <link rel="stylesheet" href="libs/nouislider.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div id="preloader" class="hide">
+        <div id="preloader-wrapper">
+            <div id="preloader-default">
+                <img src="./assets/preload.webp">
+                <p class="messasge">똑똑한 니 컴퓨터가 문제를 풀고 있습니다. 기다려 주세요...</p>
+            </div>
+            <div id="preloader-additional" class="hide">
+                <img src="./assets/preload.webp">
+                <p class="messasge">똑똑한 니 컴퓨터가 문제를 풀고 있습니다. 기다려 주세요...</p>
+            </div>
+            <p><span class="count"></span>회 이동까지 경우의 수 계산을 마쳤습니다.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div class="section center" id="header">
+            <h4>소최계(소코반 최단거리 계산기)</h4>
+        </div>
+        <div class="section" id="form">
+            <h4>에디터</h4>
+            <div class="wrapper">
+                <div id="inputMenu">
+                    <span class="charbtn" data-charid=".">🕳️</span>
+                    <span class="charbtn" data-charid="$">🧀</span>
+                    <span class="charbtn" data-charid="@">🐭</span>
+                    <span class="charbtn" data-charid=" ">⬜</span>
+                    <span class="charbtn active" data-charid="#">🔥</span>
+                    <span class="charbtn" data-charid="*">⛳</span>
+                </div>
+            </div>
+            <div id="input">
+
+            </div>
+            <div class="wrapper" id="timeline-wrapper">
+                <p class="range-field">
+                    <input type="range" id="timeline" min="0" max="0" width="90%"/>
+                    <a href="#" class="material-icons" id="timeline-play">play_arrow</a>
+                </p>
+
+            </div>
+            <h4>설정</h4>
+            <div class="row wrapper" id="series">
+                <div class="col s3">가로</div>
+                <div class="col s3"><input type="number" min="1" max="20" value="10" id="width" /></div>
+                <div class="col s3">세로</div>
+                <div class="col s3"><input type="number" min="1" max="20" value="10" id="height" /></div>
+            </div>
+            <div class="wrapper center" style="margin-bottom:8px">
+                <div class="btn" id="start">계산 시작!</div>
+            </div>
+
+        </div>
+        <div class="section">
+            <h4>템플릿</h4>
+            <ul class="collapsible templates">
+            </ul>
+
+        </div>
+    </div>
+    <script src="libs/materialize.min.js"></script>
+
+    <script src="stratgy.js"></script>
+    <script src="index.js"></script>
+    <script src="datas.js"></script>
+
+</html>
