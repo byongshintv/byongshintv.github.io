@@ -26,7 +26,20 @@
             <p><span class="count"></span>회 이동까지 경우의 수 계산을 마쳤습니다.</p>
         </div>
     </div>
+    <div id="gamepad">
+        <div class="row">
+            <div class="col s4"></div>
+            <div class="col s4"><div class="padbtn" data-direction="up"><i class="material-icons">arrow_upward</i></div></div>
+            <div class="col s4"></div>
+
+        </div>
+        <div class="row">
+            <div class="col s4"><div class="padbtn" data-direction="left"><i class="material-icons">arrow_back</i></div></div>
+            <div class="col s4"><div class="padbtn" data-direction="down"><i class="material-icons">arrow_downward</i></div></div>
+            <div class="col s4"><div class="padbtn" data-direction="right"><i class="material-icons">arrow_forward</i></div></div>
     
+        </div>
+    </div>
     <div class="container">
 
         <div class="section center" id="header">
@@ -55,11 +68,18 @@
 
             </div>
             <h4>설정</h4>
-            <div class="row wrapper" id="series">
-                <div class="col s3">가로</div>
-                <div class="col s3"><input type="number" min="1" max="20" value="10" id="width" /></div>
-                <div class="col s3">세로</div>
-                <div class="col s3"><input type="number" min="1" max="20" value="10" id="height" /></div>
+            <div class="wrapper" id="settings">
+                <div class="row">
+                    <div class="col s3 label">가로</div>
+                    <div class="col s3"><input type="number" min="1" max="20" value="10" id="width" /></div>
+                    <div class="col s3 label">세로</div>
+                    <div class="col s3"><input type="number" min="1" max="20" value="10" id="height" /></div>
+                </div>
+                <div class="row">
+                    <div class="col s3 label">줌</div>
+                    <div class="range-field s9 col"><input type="range" id="zoom" value="100" min="10" max="300"/></div>
+                    
+                </div>
             </div>
             <div class="wrapper center" style="margin-bottom:8px">
                 <div class="btn" id="start">계산 시작!</div>

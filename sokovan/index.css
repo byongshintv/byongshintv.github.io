@@ -2,7 +2,9 @@
 
     @font-face { font-family: "Maple"; src: url("./assets//Maplestory Bold.ttf"); font-weight: bold }
     @font-face { font-family: "Maple"; src: url("./assets//Maplestory Light.ttf"); font-weight: 600; }
-
+    input[type=range]{
+        border:none;
+    }
     body{
         background:url('./assets/bgs.jpg');
         font-family: Maple;
@@ -122,3 +124,49 @@
         width:80vw;
         max-width: 600px;
     }
+
+    #gamepad{
+        position: fixed;
+        right:1em;
+        bottom:1em;
+        opacity:0.8;
+        z-index:99;
+    }
+    #gamepad .row, #gamepad .row .col{
+        margin:0;
+        padding:0;
+    }
+
+    #gamepad .padbtn{
+        background:#5b8c93;
+        color:#fff;
+        border:#ffcf8f 3px solid;
+        outline:#000 3px solid;
+        margin: 0.5em;
+        padding: 0.25em;
+        box-shadow:0 3px 3px rgba(0,0,0,.5);
+        text-shadow:0 3px 3px rgba(0,0,0,.5);
+        border-radius:4px;
+        cursor:default;
+    }
+
+    #gamepad .padbtn i{
+        transition:0.2s;
+    }
+    #gamepad .padbtn:hover i{
+        transform:translateY(1px);
+    }
+
+    #settings .col{
+        height:2.5em;
+    }
+    #settings .col input{
+        height:2em;
+        margin:0;
+    }
+    #settings .label{    
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+    

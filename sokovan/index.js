@@ -101,23 +101,47 @@ window.addEventListener('DOMContentLoaded', () => {
     let defaultMap = `########\n###.####\n### ####\n###$ $.#\n#. $@###\n####$###\n####.###\n########`
     initCanvas(defaultMap);
 
-    document.addEventListener("keydown", ({ key }) => {
-        if (!key.match(/Arrow.*/)) return;
-        let command = key.replace("Arrow", "").toLowerCase()
+    function instanceMove(command){
         let map = encodeCanvas();
         let moveAxis = keyAxis[command];
         let nextMap = move(map, moveAxis)
         if (!nextMap) return;
         initCanvas(Map.decode(nextMap))
+    }
+    document.addEventListener("keydown", ({ key }) => {
+        if (!key.match(/Arrow.*/)) return;
+        let command = key.replace("Arrow", "").toLowerCase()
+        instanceMove(command)
+    });
+
+    $$("#gamepad .padbtn").forEach(ele => ele.addEventListener("mousedown",function(e){
+        
+        e.preventDefault();
+        let command = this.dataset.direction
+        instanceMove(command)
+    }))
+    var $gamepad = $("#gamepad");
+    document.addEventListener("scroll", (e) => {
+        console.log()
+        if(this.scrollY >= 320){
+            $gamepad.classList.add("hide");
+        } else {
+            $gamepad.classList.remove("hide");
+        }
     });
 
     $$("#width, #height").forEach(ele => ele.addEventListener("keyup", function () {
         initCanvas();
     }))
 
+    $("#zoom").addEventListener("input", function (e) {
+        $("#input").style.zoom = this.value + "%"
+    })
+
 
     $$(".templates .btn").forEach(ele => {
         ele.addEventListener("click", function () {
+            window.scrollTo(0,0);
             initCanvas(this.dataset.map);
 
         })
@@ -140,7 +164,7 @@ window.addEventListener('DOMContentLoaded', () => {
         endPreloadWait();
         let i = 0;
         let messageList = [
-            ["preload2.jpg","어... 너무 오래걸리는데요 이문제는 안풀리나봐요"],
+            ["preload2.jpg","어... 너무 오래걸리는데요 이문제는 좀 어려운가봐요"],
             ["preload5.gif","컴퓨터가 힘들다는데 F5를 누르시는건 어떨까요?"],
             ["preload4.jpg","시발 안풀린다고 가라고"],
             ["preload3.jpg","니 컴사양으로 안된다고 ㅋㅋㅋㅋㅋㅋ"],
