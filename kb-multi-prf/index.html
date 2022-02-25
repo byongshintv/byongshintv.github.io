@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동치판정 테스트</title>
+    <style>
+
+        a:not(:focus)+.hide{  display:none; }
+    </style>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+</head>
+<script>
+    window.addEventListener('message', receiveMessage, false);
+    function receiveMessage(event) {
+        if (event.data) {
+            var msg;
+            try {
+                msg = JSON.parse(event.data);
+            } catch (err) {
+                // Do nothing
+            }
+            if (!msg) {
+                return false;
+            }
+            if (msg.name === 'resize' || msg.name === 'rendered') {
+                window.parent.postMessage({
+                sentinel: 'amp',
+                type: 'embed-size',
+                height: msg.data.height
+                }, '*');
+            }
+        }
+    }
+</script>
+<body>
+    <h1>동치판정 테스트</h1>
+    <a href="#"> 참고용 리겜별 퍼펙판정</a>
+    <pre class="hide">
+        ±16.67ms(1프레임) 라인
+        - beatmania IIDX / P.GREAT
+        - DanceDanceRevolution / MARVELOUS
+        - REFLEC BEAT (초대작/유구의 리플레시아 MASTER 판정) / JUST
+        - jubeat (HARD MODE 판정) / PERFECT (±20.83ms)
+        - INVAXION / Maximum+ (±20ms)
+        
+        ±25.00ms(1.5프레임) 라인
+        - pop'n music / COOL
+        - REFLEC BEAT (limelight~VOLZZA 2까지, 모바일판 Rb+) / JUST
+        - 태고의 달인(무즈카시이, 오니 난이도) / 良
+        - 프로젝트 디바 아케이드 / COOL
+        - GITADORA DrumMania / PERFECT (±27ms)
+        　[참고 : 페달판정은 ±39ms]
+        
+        ±33.34ms(2프레임) 라인
+        - REFLEC BEAT (유구의 리플레시아) / JUST
+        - GITADORA GuitarFreaks / PERFECT
+        - SOUND VOLTEX / CRITICAL
+        - 온게키 / CRITICAL BREAK
+        - CHUNITHM / JUSTICE CRITICAL
+        - 펌프 잇 업 (VJ 판정) / PERFECT (±32ms)
+        　[참고 : XX 이전버전은 -16ms~+48ms]
+        
+        ±41.67ms(2.5프레임) 라인
+        - jubeat / PERFECT
+        - BanG Dream! / PERFECT
+        - 태고의 달인(간단, 보통 난이도) / 良
+        - MUSYNC / Exact+ (±45ms)
+        
+        ±50.00ms(3프레임) 라인
+        : 본격적으로 모바일 리듬게임들이 등장하는 구간
+        - maimai / PERFECT (세부판정인 CRITICAL PERFECT 범위는 ±16.67ms)
+        - Deemo / Charming
+        - 밀리시타 / PERFECT
+        - MUSE DASH / PERFECT
+        - Arcaea / Early PURE, Late PURE(세부 판정인 PURE는 ±25ms)
+        
+        ±58.33ms(3.5프레임) 라인
+        - Dynamix / Perfect
+        - Lanota / Harmony
+        - Hachi Hachi / PERFECT
+        - 데레스테(MASTER, MASTER+ 난이도) / PERFECT
+        　[참고 : 플릭/롱노트는 전난이도 ±120ms(약 7프레임)]
+        
+        ±66.67ms(4프레임) 라인
+        - 데레스테(PRO 난이도) / PERFECT
+        - Cytus, Cytus 2 / PERFECT (세부판정인 TP PERFECT는 ±50ms)
+        - 펌프 잇 업 / PERFECT (±64ms)
+        　[참고 : XX 이전버전은 -32ms~+96ms]
+        
+        ±75.00ms(4.5프레임) 라인
+        - 데레스테(DEBUT, REGULAR 난이도) / PERFECT
+        
+        ±83.35ms(5프레임) 라인
+        - OverRapid / EXCELLENT
+    </pre>
+    <br />
+    <br />
+    딱딱한 물건(책의 하드커버 표지, 나무판자)으로 키보드를 눌렀다 때세요
+    <hr />
+    <div class="keydown"> 
+        <h2>키보드 누를때</h2>
+        <ul class="output"></ul>
+    </div>
+    <div class="keyup">
+        <h2>키보드 땔때</h2>
+        <ul class="output "></ul>
+    </div>
+    <div id="disqus_thread"></div>
+
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+
+        const SETTING = {
+            TIMEOUT_MS : 50
+        }
+        const STATUS_CODE = {
+            UP : Symbol("UP"),
+            DOWN : Symbol("DOWN")
+        }
+
+        function isTimeout(nowEntry,records){
+            if(records.length === 0) return false;
+            let lastedEntry = records[records.length - 1];
+            if(nowEntry.status !== lastedEntry.status) return true;
+            if(nowEntry.time - lastedEntry.time > SETTING.TIMEOUT_MS) return true;
+            return false;
+        }
+
+        // html 렌더링 퍼포먼스를 고려해 일정시간 뒤 출력
+        let printThreshold
+        function printRecords(records){
+            let isUp = STATUS_CODE.UP === records[0].status
+            const $output = $(`.${isUp ? "keyup" : "keydown"} .output`)
+            clearTimeout(printThreshold)
+            printThreshold = setTimeout(function(){
+                let offset = records[0].time;
+
+                $output.innerHTML = records
+                    .map(record => ({...record, time: record.time - offset}))
+                    .map(({time,key,status}) => `<li><b>${key}</b> : ${Math.round(time*100)/100}ms</li>`)
+                    .join("\n")
+
+            },SETTING.TIMEOUT_MS)
+        }
+        
+        function eventListener(statusType){
+            let records = [];
+            return function(e){
+                let now = performance.now();
+                let nowEntry = {
+                    time:now,
+                    key:e.key,
+                    status:statusType
+                };
+                if( isTimeout(nowEntry, records) ){
+                    records = [nowEntry];
+                } else {
+                    records.push(nowEntry)
+                }
+
+                printRecords(records)
+            }
+        }
+        document.addEventListener("keydown",eventListener(STATUS_CODE.DOWN))
+        document.addEventListener("keyup",eventListener(STATUS_CODE.UP))
+
+
+    </script>
+<script>
+    // discus 스레드
+    var disqus_config = function () {
+        this.page.url = window.location;
+        this.page.identifier = window.location.hash;
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = 'https://baniper.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+</body>
+</html>
