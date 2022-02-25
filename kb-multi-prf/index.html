@@ -1,39 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>동치판정 테스트</title>
     <style>
-
-        a:not(:focus)+.hide{  display:none; }
+        a:not(:focus)+.hide {
+            display: none;
+        }
     </style>
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 </head>
-<script>
-    window.addEventListener('message', receiveMessage, false);
-    function receiveMessage(event) {
-        if (event.data) {
-            var msg;
-            try {
-                msg = JSON.parse(event.data);
-            } catch (err) {
-                // Do nothing
-            }
-            if (!msg) {
-                return false;
-            }
-            if (msg.name === 'resize' || msg.name === 'rendered') {
-                window.parent.postMessage({
-                sentinel: 'amp',
-                type: 'embed-size',
-                height: msg.data.height
-                }, '*');
-            }
-        }
-    }
-</script>
+
+
 <body>
     <h1>동치판정 테스트</h1>
     <a href="#"> 참고용 리겜별 퍼펙판정</a>
@@ -99,7 +80,7 @@
     <br />
     딱딱한 물건(책의 하드커버 표지, 나무판자)으로 키보드를 눌렀다 때세요
     <hr />
-    <div class="keydown"> 
+    <div class="keydown">
         <h2>키보드 누를때</h2>
         <ul class="output"></ul>
     </div>
@@ -114,48 +95,48 @@
         const $$ = document.querySelectorAll.bind(document);
 
         const SETTING = {
-            TIMEOUT_MS : 50
+            TIMEOUT_MS: 50
         }
         const STATUS_CODE = {
-            UP : Symbol("UP"),
-            DOWN : Symbol("DOWN")
+            UP: Symbol("UP"),
+            DOWN: Symbol("DOWN")
         }
 
-        function isTimeout(nowEntry,records){
-            if(records.length === 0) return false;
+        function isTimeout(nowEntry, records) {
+            if (records.length === 0) return false;
             let lastedEntry = records[records.length - 1];
-            if(nowEntry.status !== lastedEntry.status) return true;
-            if(nowEntry.time - lastedEntry.time > SETTING.TIMEOUT_MS) return true;
+            if (nowEntry.status !== lastedEntry.status) return true;
+            if (nowEntry.time - lastedEntry.time > SETTING.TIMEOUT_MS) return true;
             return false;
         }
 
         // html 렌더링 퍼포먼스를 고려해 일정시간 뒤 출력
         let printThreshold
-        function printRecords(records){
+        function printRecords(records) {
             let isUp = STATUS_CODE.UP === records[0].status
             const $output = $(`.${isUp ? "keyup" : "keydown"} .output`)
             clearTimeout(printThreshold)
-            printThreshold = setTimeout(function(){
+            printThreshold = setTimeout(function () {
                 let offset = records[0].time;
 
                 $output.innerHTML = records
-                    .map(record => ({...record, time: record.time - offset}))
-                    .map(({time,key,status}) => `<li><b>${key}</b> : ${Math.round(time*100)/100}ms</li>`)
+                    .map(record => ({ ...record, time: record.time - offset }))
+                    .map(({ time, key, status }) => `<li><b>${key}</b> : ${Math.round(time * 100) / 100}ms</li>`)
                     .join("\n")
 
-            },SETTING.TIMEOUT_MS)
+            }, SETTING.TIMEOUT_MS)
         }
-        
-        function eventListener(statusType){
+
+        function eventListener(statusType) {
             let records = [];
-            return function(e){
+            return function (e) {
                 let now = performance.now();
                 let nowEntry = {
-                    time:now,
-                    key:e.key,
-                    status:statusType
+                    time: now,
+                    key: e.key,
+                    status: statusType
                 };
-                if( isTimeout(nowEntry, records) ){
+                if (isTimeout(nowEntry, records)) {
                     records = [nowEntry];
                 } else {
                     records.push(nowEntry)
@@ -164,25 +145,26 @@
                 printRecords(records)
             }
         }
-        document.addEventListener("keydown",eventListener(STATUS_CODE.DOWN))
-        document.addEventListener("keyup",eventListener(STATUS_CODE.UP))
+        document.addEventListener("keydown", eventListener(STATUS_CODE.DOWN))
+        document.addEventListener("keyup", eventListener(STATUS_CODE.UP))
 
 
     </script>
-<script>
-    // discus 스레드
-    var disqus_config = function () {
-        this.page.url = window.location;
-        this.page.identifier = window.location.hash;
-    };
-    (function() {  // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
+    <script>
+        // discus 스레드
+        var disqus_config = function () {
+            this.page.url = window.location;
+            this.page.identifier = window.location.hash;
+        };
+        (function () {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
 
-        s.src = 'https://baniper.disqus.com/embed.js';
+            s.src = 'https://baniper.disqus.com/embed.js';
 
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 </body>
+
 </html>
