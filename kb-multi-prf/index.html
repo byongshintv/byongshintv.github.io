@@ -17,7 +17,7 @@
 
 <body>
     <h1>동치판정 테스트</h1>
-    <a href="#"> 참고용 리겜별 퍼펙판정</a>
+    <a href="#"> 참고용 리겜별 퍼펙판정(주워와서 아닐수도 있음)</a>
     <pre class="hide">
         ±16.67ms(1프레임) 라인
         - beatmania IIDX / P.GREAT
@@ -111,12 +111,13 @@
         }
 
         // html 렌더링 퍼포먼스를 고려해 일정시간 뒤 출력
-        let printThreshold
+        let printThreshold = {}
         function printRecords(records) {
-            let isUp = STATUS_CODE.UP === records[0].status
+            let status = records[0].status;
+            let isUp = STATUS_CODE.UP === status
             const $output = $(`.${isUp ? "keyup" : "keydown"} .output`)
-            clearTimeout(printThreshold)
-            printThreshold = setTimeout(function () {
+            clearTimeout(printThreshold[status])
+            printThreshold[status] = setTimeout(function () {
                 let offset = records[0].time;
 
                 $output.innerHTML = records
