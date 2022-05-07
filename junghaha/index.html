@@ -125,17 +125,16 @@
 
         let make = () => {
             let junghaha = ""
-            let targetha = ha.random({exe:false})//[ha.length - 1]
+            let targetha = ha[ha.length - 1]//.random({exe:false})
             while (junghaha.length < 200) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
 
         make()
-
+ 
         $("#make").on("click", function () {
             $("#output").text(make())
             M.textareaAutoResize($("#output"));
-            $("#output").select()
             $("#copy").removeAttr("disabled");
         })
         $("#copy").on("click", function () {
