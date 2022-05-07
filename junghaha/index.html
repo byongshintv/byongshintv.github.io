@@ -125,7 +125,7 @@
 
         let make = () => {
             let junghaha = ""
-            let targetha = ha[ha.length - 1]//.random({exe:false})
+            let targetha = ha.random({exe:false})//[ha.length - 1]
             while (junghaha.length < 200) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
