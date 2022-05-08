@@ -60,7 +60,7 @@
                 </div>
 
             </div>
-    <script>
+    <script>        
         Math.randomInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a
         Array.prototype.random = function ({ exe = false, st = 1, en = 1, param } = {}) {
             let rslt = ""
@@ -77,14 +77,13 @@
             () => `${["찌", "쭈", "쭤"].random()}${"우".random(0, 4)}웅`]
         let ha = [
             (st) => st + "훠".random(20, 30),
-            (st) => st + "下".random(20, 30),
+            (st) => "中" + "下".random(20, 30),
             (st, accent) => st + `기덕${accent('long')} 끈${accent('bold')} 더${"러".random(10, 15)}${accent('long')}`,
             (st, accent) => st + `${"하".random(20, 30)}${accent()}`,
             (st, accent) => st + [`끼${"이".random(5, 10)}익`, `꾸익`.random(3, 5)].random() + accent(),
             (st, accent) => st + "으후루꾸꾸루후으".random(2, 5),
             (st, accent) => st + ["꾸왁", "꾸웍"].map(str => str.random(3, 5)).random(2, 5),
             (st, accent) => st + `끼${"야".random(20, 30)}악` + accent(),
-            (st, accent) => st + `푸${"드".random(20, 30)}득` + accent(),
             (st, accent) => st + `아잇${accent("bold")} 푸르르르르${accent("long")}`,
             (st, accent) => st + ["월", "멍", "컹"].map(str => str.random(15, 20)).random() + accent(),
             (st, accent) => st + `${"끼룩".random(5, 10)}${accent()}`,
@@ -102,8 +101,6 @@
             (st, accent) => `${["중", "쭝"].random()}따단${accent('bold')}(따${"다".random(3, 5)}단${accent('bold')})`,
             (st, accent) => `중빠밤빠${"바".random(3, 5)}밤빠${"바".random(5, 7)}`,
             (st, accent) => st + `뽀롱${`뽀${"로".random(5, 8)}롱`.random(2, 4)}` + accent('long'),
-            () => `<iframe width='280px' height='54px' src='https://m.dcinside.com/voice/player?vr=39a4c023b8c07eaf6ae2c5bc18d628384b845c721f21eb89039d0765f157b66cc8473666aa' frameborder='0' scrolling='no'></iframe>`,
-            () => `출처: 중세게임 갤러리 [원본 보기]`,
             (st, accent) => st + ["달그닥", "달그락"].random({ st: 7, en: 10 }) + "쨍그랑" + accent("bold"),
             (st, accent) => st + ["덜컹", "덜커덩"].random({ st: 7, en: 10 }) + "부르릉" + accent("long"),
             (st, accent) => st + ["사부작", "사각", "사그작"].random({ st: 7, en: 10 }) + "빠지직" + accent("bold"),
@@ -111,27 +108,33 @@
             (st, accent) => st + ["후루룹", "후루루루루룹", "쩝쩝"].random({ st: 7, en: 10 }),
             (st, accent) => st + ["덩실", "뒤뚱", "파닥"].map(str => str.random(8, 10)).random() + accent(),
             (st, accent) => st + ["우르릉", "쾅쾅"].random({ st: 7, en: 10 }) + accent("bold"),
-
+            (st, accent) => st + [()=>`푸${"드".random(0, 3)}득`,()=>`뿌${"지".random(0, 3)}직`].random({ st: 7, en: 10,exe:true }) + accent("bold"),
+            () => [`<iframe width='280px' height='54px' src='https://m.dcinside.com/voice/player?vr=39a4c023b8c07eaf6ae2c5bc18d628384b845c721f21eb89039d0765f157b66cc8473666aa' frameborder='0' scrolling='no'></iframe>`,`<iframe width='280px' height='54px' src='https://m.dcinside.com/voice/player?vr=39a4c023b8c07eaf6ae2c5bc18d628384b845c721f21eb89039d0765f157b66aa6cce28887' frameborder='0' scrolling='no'></iframe>`].random(),
+            () => `출처: 중세게임 갤러리 [원본 보기]`,
+            (st, accent) => st + ["콜록","에취"].random({ st: 7, en: 10 }) + accent("bold"),
+            (st, accent) => st + `구리당당중당당${accent("bold")}구리구리당당중당당${accent("bold")}`,
+            (st, accent) => st + ["뜬","뜨든",()=>`뜨${["드"].random({st: 1, en: 3})}${['','','','',"뜬↗","든↘"].random()}`,`(뜨${"드".random(0,3)}든)`].random({ st: 7, en: 10,exe:true }) + accent("bold"),
+            (st, accent) => st+[()=>`휘${"이".random(0, 8)}잉`,()=>`휘${"이".random(0, 8)}용`].random({ st: 7, en: 10,exe:true }),
+            (st, accent) => st+[()=>`부${"르".random(0,5)}릉` + accent("bold")].random({ st: 7, en: 10,exe:true }) + `부${"아".random(0,5)}앙` + accent("bold"),
         ]
         function accent(type = "default") {
             let rtnType = {
-                long: "~".random(5, 7),
-                bold: "!".random(5, 7),
+                long: "~".random(3, 5),
+                bold: "!".random(3, 5),
                 default: "~".random(3, 5) + "!".random(3, 5),
-                hatena: "?".random(5, 7),
+                hatena: "?".random(3, 5),
             }
             return rtnType[type]
         }
 
         let make = () => {
             let junghaha = ""
-            let targetha = ha.random({exe:false})//[ha.length - 1]
-            while (junghaha.length < 200) junghaha += targetha(jung.random({ exe: true }), accent)
+            let targetha = ha.random({exe:false})//[ha.length - 1]//
+            while (junghaha.length < 200 && !junghaha.match(/iframe/)) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
 
         make()
- 
         $("#make").on("click", function () {
             $("#output").text(make())
             M.textareaAutoResize($("#output"));
