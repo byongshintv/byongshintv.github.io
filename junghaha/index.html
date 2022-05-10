@@ -38,6 +38,10 @@
             color:#000;
         }
 
+        .hide{
+            display:none;
+        }
+
     </style>
 </head>
 
@@ -49,9 +53,8 @@
                   </div>
                 <div class="card-content">
                     <p>당신만의 중하하를 생성하세요.</p>
-                    <div class="input-field output-wrap">
+                    <div class="input-field output-wrap hide">
                         <textarea id="output" class="materialize-textarea"></textarea>
-                        <label for="output">출력</label>
                     </div>
                 </div>
                 <div class="card-action">
@@ -116,6 +119,8 @@
             (st, accent) => st + ["뜬","뜨든",()=>`뜨${["드"].random({st: 1, en: 3})}${['','','','',"뜬↗","든↘"].random()}`,`(뜨${"드".random(0,3)}든)`].random({ st: 7, en: 10,exe:true }) + accent("bold"),
             (st, accent) => st+[()=>`휘${"이".random(0, 8)}잉`,()=>`휘${"이".random(0, 8)}용`].random({ st: 7, en: 10,exe:true }),
             (st, accent) => st+[()=>`부${"르".random(0,5)}릉` + accent("bold")].random({ st: 7, en: 10,exe:true }) + `부${"아".random(0,5)}앙` + accent("bold"),
+            (st, accent) => st+["북","북","북","딱","딱","딱","예아","이기","매끼나라",`따${"다".random(0,2)}닥`].random({ st: 13, en: 15,exe:true }),
+            (st, accent) => "중 끼 얏 호 우 ",
         ]
         function accent(type = "default") {
             let rtnType = {
@@ -127,25 +132,28 @@
             return rtnType[type]
         }
 
-        let make = () => {
+        let make = (isRandom = true) => {
             let junghaha = ""
-            let targetha = ha.random({exe:false})//[ha.length - 1]//
+            let targetha = isRandom ? ha.random({exe:false}) : ha[ha.length - 1]
             while (junghaha.length < 200 && !junghaha.match(/iframe/)) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
 
-        make()
+        make(false)
         $("#make").on("click", function () {
-            $("#output").text(make())
+            $(".output-wrap").removeClass("hide")
+            $("#output").text(make(true))
             M.textareaAutoResize($("#output"));
             $("#copy").removeAttr("disabled");
         })
         $("#copy").on("click", function () {
             $("#output").select()
             document.execCommand("copy");
+            $("#output").prop('selectionStart', 0).prop('selectionEnd',0).blur();
             M.toast({ html: "복사 완료" })
         })
         $("#output").on("focus", function () {
+            $("#output").select()
             $("#output").select()
         })
     </script>
