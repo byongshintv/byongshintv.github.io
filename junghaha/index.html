@@ -145,7 +145,7 @@
         let make = (isRandom = true) => {
             let junghaha = ""
             let targetha = isRandom ? ha.random({exe:false}) : ha[ha.length - 1]
-            while (junghaha.length < 200 && !junghaha.match(/iframe/)) junghaha += targetha(jung.random({ exe: true }), accent)
+            while (junghaha.length < 400 && !junghaha.match(/iframe/)) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
         make(false)
