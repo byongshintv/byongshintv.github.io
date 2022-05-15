@@ -56,14 +56,14 @@
                     </div>
                 </div>
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn" id="make">생성</a>
-                    <a class="waves-effect waves-light btn" id="copy" disabled>복사</a>
+                    <a class="waves-effect waves-light btn" id="make" href="#">생성</a>
+                    <a class="waves-effect waves-light btn" id="copy" href="#" disabled>복사</a>
                 </div>
 
             </div>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>        
         Math.randomInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a
         Array.prototype.random = function ({ exe = false, st = 1, en = 1, param } = {}) {
@@ -80,7 +80,6 @@
         let jung = [
             () => `${["찌", "쭈", "쭤"].random()}${"우".random(0, 4)}웅`]
         let ha = [
-            (st) => st + "훠".random(20, 30),
             (st) => "中" + "下".random(20, 30),
             (st, accent) => st + `기덕${accent('long')} 끈${accent('bold')} 더${"러".random(10, 15)}${accent('long')}`,
             (st, accent) => st + `${"하".random(20, 30)}${accent()}`,
@@ -125,6 +124,13 @@
             () => "중하바라밀다심경"+['마하반야바라밀다심경', '관자재보살', '행심반야바라밀다시', '조견오온개공', '도일체고액', '사리자', '색불이공', '공불이색', '색즉시공', '공즉시색', '수상행식', '역부여시', '사리자', '시제법공상', '불생불멸', '불구부정', '부증불감', '시고', '공중무색', '무수상행식', '무안이비설신의', '무색성향미촉법', '무안계', '내지', '무의식계', '무무명', '역무무명진', '내지', '무노사', '역무노사진', '무고집멸도', '무지', '역무득', '이무소득고', '보리살타', '의반야바라밀다', '고심무가애', '무가애고', '무유공포', '원리전도몽상', '구경열반', '삼세제불의반야바라밀다', '고득아뇩다라삼먁삼보리', '고지반야바라밀다', '시대신주', '시대명주', '시무상주', '시무등등주', '능제일체고', '진실불허', '고설반야바라밀다주', '즉설주왈', '아제아제', '바라아제', '바라승아제', '모지', '사바하'].map(v => "중" + v.slice(1)).random({ st: 7, en: 10,exe:true }),
             (st) => `중${["항","핳"].random({st:7,st:10})}ꉂꉂ(ᵔᗜᵔ*)${"ㅋ".random(4,5)}${["🌊","🚢","⚓"].random({st: 3, en: 3})}`,
             (st) => `딩딩딩~중모닝~${"빠".random(7,10)}(중모닝)${[() => "빠".random(3,4),"딩".random(3,5)].random({st:7,st:10,exe:true})}잇츠뷰리풀데이~`,
+            (st) => st + "도키도키시테타☆ ",
+            (st) => "쭝쓰!쭝쓰!쭝쓰".repeat(2)+"중중따리중중따!근근따리근근따!",
+            (st,accent) => `${st}기당권${accent("long")}토우${accent("bold")}`,
+            (st) => st + ["훠","쭵"].random({st:10,st:15}),
+            (st,accent) => st + `따리샤바라빠빠빠${accent("long")}${"빠".repeat(8)}${accent("long")}`,
+            (st) => st + ["택배입니다","문열어주세요","문열어요"].random()+ ["띵동","쾅","철컥"].random({st:8,en:15}),
+            (st) => `우리는중리웹JUNGGUNWEB${["라이라이차차차",`${st}빠빠리빠`].random({st:2,en:2})}싸워서이기고지면은죽어라${st}헤이빠빠리빠부라보!부라보!중근웹!`
         ]
         function accent(type = "default") {
             let rtnType = {
@@ -142,7 +148,6 @@
             while (junghaha.length < 200 && !junghaha.match(/iframe/)) junghaha += targetha(jung.random({ exe: true }), accent)
             return junghaha
         }
-
         make(false)
         $("#make").on("click", function () {
             $(".output-wrap").removeClass("hide")
