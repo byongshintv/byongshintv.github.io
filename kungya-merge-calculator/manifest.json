@@ -1,0 +1,19 @@
+{
+    "name": "쿵야 머지 계산기",
+    "short_name": "넷마블 모바일 앱 쿵야 머지 아일랜드에서 지정 쿵야까지 필요한 골드량을 계산 해 줍니다.",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "display": "standalone",
+    "background_color": "#ffffff"
+}
